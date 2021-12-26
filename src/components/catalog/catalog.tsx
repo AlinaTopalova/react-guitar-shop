@@ -1,31 +1,23 @@
 /* eslint-disable no-console */
-import { getGuitars } from 'api';
-import { useEffect, useState } from 'react';
-import { Guitar } from 'types/guitar';
-import Filters from './filters/filters';
-import GuitarCard from './guitarCard/guitarCard';
-import Pagination from './pagination/pagination';
-import Sorting from './sorting/sorting';
+import { useSelector } from 'react-redux';
+import Filters from 'components/filters/filters';
+import GuitarCard from 'components/guitarCard/guitarCard';
+import Pagination from 'components/pagination/pagination';
+import Sorting from 'components/sorting/sorting';
+import { getGuitars } from 'store/guitars-store/selectors';
 
-const CARD_MAX_AMOUNT = 9;
+const CARDS_MAX_AMOUNT = 9;
 
 export default function Catalog(): JSX.Element {
-  const [guitars, setGuitars] = useState<Guitar[]>([]);
-
-  useEffect(() => {
-    const fetchGuitars = async() => {
-      const guitarsData = await getGuitars();
-      setGuitars(guitarsData);
-    };
-    fetchGuitars();
-  }, []);
+  const guitars = useSelector(getGuitars);
+  console.log(guitars);
 
   return (
     <div className="catalog">
       <Filters />
       <Sorting />
       <div className="cards catalog__cards">
-        {guitars.slice(0, CARD_MAX_AMOUNT).map((guitar) => (
+        {guitars.slice(0, CARDS_MAX_AMOUNT).map((guitar) => (
           <GuitarCard key={guitar.id} guitar={guitar} />
         ))}
       </div>

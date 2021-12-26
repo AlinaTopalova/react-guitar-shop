@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { Guitar } from 'types/guitar';
+import { Guitar } from 'types/data';
 
 const STARS_MAX_AMOUNT = 5;
 
@@ -18,23 +18,13 @@ export default function GuitarCard(props: GuitarCardProps): JSX.Element {
       <div className="product-card__info">
         <div className="rate product-card__rate" aria-hidden="true">
           <span className="visually-hidden">Рейтинг:</span>
-          {stars.map((star, index) => {
-            if (index < Math.floor(guitar.rating)) {
-              return (
-                <svg key={nanoid()} width="12" height="11" aria-hidden="true">
-                  <use xlinkHref="#icon-full-star"></use>
-                </svg>
-              );
-            }
-            else {
-              return (
-                <svg key={nanoid()} width="12" height="11" aria-hidden="true">
-                  <use xlinkHref="#icon-star"></use>
-                </svg>
-              );
-            }
-          })}
-          <span className="rate__count">{guitar.rating}</span>
+          {stars.map((star, index) => (
+            <svg key={nanoid()} width="12" height="11" aria-hidden="true">
+              <use xlinkHref={index < Math.floor(guitar.rating) ? '#icon-full-star' : '#icon-star'}></use>
+            </svg>
+          ),
+          )}
+          <span className="rate__count">{guitar.comments?.length}</span>
           <span className="rate__message"></span>
         </div>
         <p className="product-card__title">{guitar.name}</p>

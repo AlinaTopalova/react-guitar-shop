@@ -1,23 +1,103 @@
+/* eslint-disable no-console */
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { fetchSimilarGuitars } from 'store/api-actions';
+import {
+  clearSimilarGuitars,
+  setSearchValue
+} from 'store/search-store/actions';
+import {
+  getSimilarGuitars
+} from 'store/search-store/selectors';
+import { AppRoute } from 'constants/constants';
+
 export default function HeaderSearch(): JSX.Element {
+  const [isSelectListOpen, setIsSelectListOpen] = useState<boolean>(false);
+
+  const similarGuitars = useSelector(getSimilarGuitars);
+
+  const dispatch = useDispatch();
+
+  const searchRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+
+  const handleSearchInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(setSearchValue(evt.target.value));
+    if (evt.target.value) {
+      setIsSelectListOpen(true);
+      dispatch(fetchSimilarGuitars(evt.target.value));
+    } else {
+      setIsSelectListOpen(false);
+      dispatch(clearSimilarGuitars());
+    }
+  };
+
+  useEffect(() => {
+    const handleOutsideClick = (evt: MouseEvent) => {
+      if (searchRef.current?.contains(evt.target as Node)) {
+        return;
+      }
+      setIsSelectListOpen(false);
+    };
+
+    document.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, [dispatch]);
 
   return (
-    <div className="form-search">
-      <form className="form-search__form">
-        <button className="form-search__submit" type="submit">
-          <svg className="form-search__icon" width="14" height="15" aria-hidden="true">
+    <div
+      ref={searchRef}
+      className="form-search"
+    >
+      <form
+        className="form-search__form"
+      >
+        <button
+          className="form-search__submit"
+          type="submit"
+        >
+          <svg
+            className="form-search__icon"
+            width="14"
+            height="15"
+            aria-hidden="true"
+          >
             <use xlinkHref="#icon-search"></use>
-          </svg><span className="visually-hidden">Начать поиск</span>
+          </svg>
+          <span className="visually-hidden">Начать поиск</span>
         </button>
-        <input className="form-search__input" id="search" type="text" autoComplete="off" placeholder="что вы ищите?" />
+        <input
+          onChange={handleSearchInputChange}
+          className="form-search__input"
+          id="search"
+          type="text"
+          autoComplete="off"
+          placeholder="что вы ищите?"
+        />
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
-      <ul className="form-search__select-list hidden">
-        <li className="form-search__select-item" tabIndex={0}>Четстер Plus</li>
-        <li className="form-search__select-item" tabIndex={0}>Четстер UX</li>
-        <li className="form-search__select-item" tabIndex={0}>Четстер UX2</li>
-        <li className="form-search__select-item" tabIndex={0}>Четстер UX3</li>
-        <li className="form-search__select-item" tabIndex={0}>Четстер UX4</li>
-        <li className="form-search__select-item" tabIndex={0}>Четстер UX5</li>
+      <ul
+        className={`form-search__select-list ${isSelectListOpen ? '' : 'hidden'}`}
+        style={{zIndex: 1}}
+        tabIndex={0}
+      >
+        {similarGuitars.map((similarGuitar) => (
+          <li
+            key={similarGuitar.id}
+            className="form-search__select-item"
+            tabIndex={1}
+          >
+            <Link
+              to={AppRoute.Card}
+              className="form-search__select-item"
+            >
+              {similarGuitar.name}
+            </Link>
+          </li>
+        ))}
       </ul>
     </div>
   );
