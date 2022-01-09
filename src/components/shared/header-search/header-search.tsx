@@ -1,23 +1,16 @@
 /* eslint-disable no-console */
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchSimilarGuitars } from 'store/api-actions';
-import {
-  clearSimilarGuitars,
-  setSearchValue
-} from 'store/search-store/actions';
-import {
-  getSimilarGuitars
-} from 'store/search-store/selectors';
 import { AppRoute } from 'constants/constants';
+import { useAppDispatch, useAppSelector } from 'hooks';
+import { clearSimilarGuitars, fetchGuitars, selectSimilarGuitars, setSearchValue } from 'features/search/searchSlice';
 
 export default function HeaderSearch(): JSX.Element {
   const [isSelectListOpen, setIsSelectListOpen] = useState<boolean>(false);
 
-  const similarGuitars = useSelector(getSimilarGuitars);
+  const similarGuitars = useAppSelector(selectSimilarGuitars);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const searchRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
@@ -25,10 +18,10 @@ export default function HeaderSearch(): JSX.Element {
     dispatch(setSearchValue(evt.target.value));
     if (evt.target.value) {
       setIsSelectListOpen(true);
-      dispatch(fetchSimilarGuitars(evt.target.value));
+      dispatch(fetchGuitars(evt.target.value));
     } else {
       setIsSelectListOpen(false);
-      dispatch(clearSimilarGuitars());
+      dispatch(clearSimilarGuitars([]));
     }
   };
 

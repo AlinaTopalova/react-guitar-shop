@@ -1,16 +1,16 @@
 import MainPage from 'components/pages/main-page/main-page';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { AppRoute } from 'constants/constants';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchGuitars } from 'store/api-actions';
+// import { useDispatch } from 'react-redux';
+// import { useEffect } from 'react';
+// import { fetchGuitars } from 'store/api-actions';
 
 export default function App(): JSX.Element {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchGuitars());
-  },[dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchGuitars());
+  // },[dispatch]);
 
   return (
     <Switch>

@@ -1,7 +1,4 @@
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import { AxiosInstance } from 'axios';
 import { Guitar } from './data';
-import { Store } from './store';
 
 export enum ActionType {
   LoadGuitarsStart = 'data/loadGuitarsStart',
@@ -10,6 +7,8 @@ export enum ActionType {
   SetSearchValue = 'search/setSearchValue',
   LoadSimilarGuitars = 'data/similarGuitars',
   ClearSimilarGuitars = 'search/clearSimilarGuitars',
+  SetSortByType = 'catalog/setSortByType',
+  SetSortByOrder = 'catalog/SetSortByOrder',
 }
 
 export type LoadGuitarsStartAction = {
@@ -39,6 +38,16 @@ export type ClearSimilarGuitarsAction = {
   type: ActionType.ClearSimilarGuitars;
 }
 
+export type SetSortByTypeAction = {
+  type: ActionType.SetSortByType;
+  payload: string;
+}
+
+export type SetSortByOrderAction = {
+  type: ActionType.SetSortByOrder;
+  payload: string;
+}
+
 export type Actions =
   | LoadGuitarsCompleteAction
   | LoadGuitarsErrorAction
@@ -46,7 +55,5 @@ export type Actions =
   | SetSearchValueAction
   | LoadSimilarGuitarsAction
   | ClearSimilarGuitarsAction
-
-export type ThunkActionResult<R = Promise<void>> = ThunkAction<R, Store, AxiosInstance, Actions>;
-
-export type ThunkAppDispatch = ThunkDispatch<Store, AxiosInstance, Actions>;
+  | SetSortByTypeAction
+  | SetSortByOrderAction

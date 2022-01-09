@@ -21,3 +21,16 @@ export type Comments = {
   createAt: Date,
   guitarId: number,
 }
+
+export type PaginationState = {
+  end: number,
+  start: number,
+}
+
+export type FilterState = Partial<Record<keyof Guitar, string[]>>;
+
+export type SortState = {
+  type?: string,
+  order?: string,
+};
+
