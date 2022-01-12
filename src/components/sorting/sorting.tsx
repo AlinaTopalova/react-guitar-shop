@@ -1,8 +1,7 @@
-import { SortByOrder } from 'constants/constants';
-import { selectSorting } from 'features/catalog/catalogSlice';
+import { SortOrder, SortType } from 'constants/constants';
+import { selectSorting } from 'features/catalogSlice/catalogSlice';
 import { useAppSelector } from 'hooks';
-import { SortState } from 'types/data';
-import { SortByType } from 'types/sorting';
+import { SortState } from 'types/types';
 
 type SortProps = {
   onSortingChange: (sorting: SortState) => void;
@@ -13,13 +12,13 @@ export default function Sorting(props: SortProps): JSX.Element {
 
   const sort = useAppSelector(selectSorting);
 
-  const handleSortTypeChange = (sortType: SortByType) => {
+  const handleSortTypeChange = (sortType: SortType) => {
     onSortingChange({ type: sortType });
   };
 
-  const handleSortOrderChange = (sortOrder: SortByOrder) => {
+  const handleSortOrderChange = (sortOrder: SortOrder) => {
     if (!sort?.type) {
-      onSortingChange({ type: SortByType.Price });
+      onSortingChange({ type: SortType.Price });
     }
     onSortingChange({ order: sortOrder });
   };
@@ -29,45 +28,49 @@ export default function Sorting(props: SortProps): JSX.Element {
       <h2 className="catalog-sort__title">Сортировать:</h2>
       <div className="catalog-sort__type">
         <button
-          onClick={() => handleSortTypeChange(SortByType.Price)}
+          onClick={() => handleSortTypeChange(SortType.Price)}
           className={
             `catalog-sort__type-button
-            ${sort?.type===SortByType.Price ? 'catalog-sort__type-button--active' : ''}`
+            ${sort?.type===SortType.Price ? 'catalog-sort__type-button--active' : ''}`
           }
           aria-label="по цене"
           tabIndex={0}
+          data-testid={SortType.Price}
         >
           по цене
         </button>
         <button
-          onClick={() => handleSortTypeChange(SortByType.Rating)}
-          className={`catalog-sort__type-button ${sort?.type===SortByType.Rating
+          onClick={() => handleSortTypeChange(SortType.Rating)}
+          className={`catalog-sort__type-button ${sort?.type===SortType.Rating
             ? 'catalog-sort__type-button--active'
             : ''
           }`}
           tabIndex={0}
           aria-label="по популярности"
+          data-testid={SortType.Rating}
         >
           по популярности
         </button>
       </div>
       <div className="catalog-sort__order">
         <button
-          onClick={() => handleSortOrderChange(SortByOrder.Asc)}
+          onClick={() => handleSortOrderChange(SortOrder.Asc)}
           className={`catalog-sort__order-button catalog-sort__order-button--up
-          ${sort?.order===SortByOrder.Asc ? 'catalog-sort__order-button--active' : ''}
+          ${sort?.order===SortOrder.Asc ? 'catalog-sort__order-button--active' : ''}
           `}
           aria-label="По возрастанию"
           tabIndex={0}
+          data-testid={SortOrder.Asc}
         >
         </button>
         <button
-          onClick={() => handleSortOrderChange(SortByOrder.Desc)}
+          onClick={() => handleSortOrderChange(SortOrder.Desc)}
           className={`catalog-sort__order-button catalog-sort__order-button--down
-          ${sort?.order===SortByOrder.Desc ? 'catalog-sort__order-button--active' : ''}
+          ${sort?.order===SortOrder.Desc ? 'catalog-sort__order-button--active' : ''}
           `}
           aria-label="По убыванию"
           tabIndex={0}
+          data-testid={SortOrder.Desc}
         >
         </button>
       </div>

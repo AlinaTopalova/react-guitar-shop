@@ -1,21 +1,14 @@
-export enum GuitarType {
-  Acoustic = 'acoustic',
-  Electric = 'electric',
-  Ukulele = 'ukulele'
-}
+import { FilterType, GuitarType } from 'constants/constants';
 
-export enum CordNumber {
-  Four = '4',
-  Six = '6',
-  Seven = '7',
-  Twelve = '12',
-}
-
-export enum FetchStatus {
-  Idle = 'IDLE',
-  Loading = 'LOADING',
-  Complete = 'COMPLETE',
-  Error = 'ERROR'
+export type Comments = {
+  id: string,
+  userName: string,
+  advantage: string,
+  disadvantage: string,
+  comment: string,
+  rating: number,
+  createAt: Date,
+  guitarId: number,
 }
 
 export type Guitar = {
@@ -28,13 +21,8 @@ export type Guitar = {
   stringCount: number;
   type: GuitarType;
   vendorCode: string;
+  comments?: Comments[],
 };
-
-export enum FilterType {
-  Equals = 'EQUALS',
-  RangeFrom = 'RANGE_FROM',
-  RangeTo = 'RANGE_TO'
-}
 
 export type FilterState = Record<
   keyof Guitar | string,
@@ -59,26 +47,4 @@ export type PaginationState = {
   end: number;
   start: number;
 };
-
-export enum OperatorQuery {
-  Gte = '_gte',
-  Like = '_like',
-  Lte = '_lte'
-}
-
-export enum PaginationQuery {
-  End = '_end',
-  Limit = '_limit',
-  Start = '_start'
-}
-
-export enum SortQuery {
-  Sort = '_sort',
-  Order = '_order'
-}
-
-export enum SortOrder {
-  Asc = 'asc',
-  Desc = 'desc'
-}
 

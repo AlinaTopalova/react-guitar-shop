@@ -1,7 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchGuitars } from 'api';
 import { RootState } from 'store';
-import { FetchStatus, PaginationQuery, SortOrder, SortQuery } from 'types/types';
+import {
+  FetchStatus,
+  PaginationQuery,
+  SortOrder,
+  SortQuery
+} from 'constants/constants';
 
 type State = {
   priceFetchStatus: FetchStatus,

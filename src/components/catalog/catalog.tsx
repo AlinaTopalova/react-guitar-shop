@@ -1,23 +1,25 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { useCallback, useEffect } from 'react';
-import { FilterSetAction, PaginationState, SortState } from 'types/types';
-import { PAGE_SIZE } from 'constants/constants';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import Filters from 'components/filters/filters';
-import GuitarCard from 'components/guitarCard/guitarCard';
-import Pagination from 'components/pagination/pagination';
-import Sorting from 'components/sorting/sorting';
+import { FilterSetAction, PaginationState, SortState } from 'types/types';
+import { FetchStatus, PAGE_SIZE } from 'constants/constants';
 import {
   fetchCatalog,
   selectData,
+  selectFetchStatus,
   selectFilter,
+  selectIsEmpty,
   selectPagination,
   selectSorting,
   selectTotalAmount,
   setFilter,
   setPagination,
   setSorting
-} from 'features/catalog/catalogSlice';
+} from 'features/catalogSlice/catalogSlice';
+import Filters from 'components/filters/filters';
+import GuitarCard from 'components/guitarCard/guitarCard';
+import Pagination from 'components/pagination/pagination';
+import Sorting from 'components/sorting/sorting';
+import Loader from 'components/shared/loader/loader';
 
 const CARDS_MAX_AMOUNT = 9;
 
@@ -26,9 +28,11 @@ export default function Catalog(): JSX.Element {
 
   const catalogData = useAppSelector(selectData);
 
-  //const catalogFetchStatus = useAppSelector(selectFetchStatus);
+  const catalogFetchStatus = useAppSelector(selectFetchStatus);
 
   const catalogFilter = useAppSelector(selectFilter);
+
+  const isCatalogEmpty = useAppSelector(selectIsEmpty);
 
   const catalogSorting = useAppSelector(selectSorting);
 
@@ -73,18 +77,31 @@ export default function Catalog(): JSX.Element {
         catalogFilter={catalogFilter}
         onFilterChange={handleFilterChange}
       />
-      <Sorting onSortingChange={handleSortingChange}/>
-      <div className="cards catalog__cards">
-        {catalogData.slice(0, CARDS_MAX_AMOUNT).map((guitar) => (
-          <GuitarCard key={guitar.id} guitar={guitar} />
-        ))}
-      </div>
-      <Pagination
-        onPageChange={handlePageChange}
-        pagination={catalogPagination}
-        size={PAGE_SIZE}
-        total={totalCatalogItems!}
+      <Sorting
+        onSortingChange={handleSortingChange}
       />
+      {catalogFetchStatus === FetchStatus.Loading && <Loader />}
+      {catalogFetchStatus === FetchStatus.Error && (
+        <div>Произошла ошибка при загрузке каталога</div>
+      )}
+      {catalogFetchStatus === FetchStatus.Complete &&
+      (isCatalogEmpty ? (
+        <p>Нет подходящих по фильтрам гитар</p>
+      ) : (
+        <>
+          <div className="cards catalog__cards">
+            {catalogData.slice(0, CARDS_MAX_AMOUNT).map((guitar) => (
+              <GuitarCard key={guitar.id} guitar={guitar} />
+            ))}
+          </div>
+          <Pagination
+            onPageChange={handlePageChange}
+            pagination={catalogPagination}
+            size={PAGE_SIZE}
+            total={totalCatalogItems!}
+          />
+        </>
+      ))}
     </div>
   );
 }

@@ -1,9 +1,13 @@
 /* eslint-disable no-console */
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AppRoute } from 'constants/constants';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { clearSimilarGuitars, fetchGuitars, selectSimilarGuitars, setSearchValue } from 'features/search/searchSlice';
+import {
+  clearSimilarGuitars,
+  fetchGuitars,
+  selectSimilarGuitars,
+  setSearchValue
+} from 'features/searchSlice/searchSlice';
 
 export default function HeaderSearch(): JSX.Element {
   const [isSelectListOpen, setIsSelectListOpen] = useState<boolean>(false);
@@ -21,7 +25,7 @@ export default function HeaderSearch(): JSX.Element {
       dispatch(fetchGuitars(evt.target.value));
     } else {
       setIsSelectListOpen(false);
-      dispatch(clearSimilarGuitars([]));
+      dispatch(clearSimilarGuitars());
     }
   };
 
@@ -84,7 +88,7 @@ export default function HeaderSearch(): JSX.Element {
             tabIndex={1}
           >
             <Link
-              to={AppRoute.Card}
+              to='/'
               className="form-search__select-item"
             >
               {similarGuitar.name}
@@ -95,3 +99,5 @@ export default function HeaderSearch(): JSX.Element {
     </div>
   );
 }
+
+

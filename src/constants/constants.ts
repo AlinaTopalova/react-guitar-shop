@@ -1,9 +1,6 @@
-import { CordNumber, GuitarType } from 'types/types';
-
 export const enum AppRoute {
   Main = '/',
   Catalog = '/catalog',
-  Card = '/sfssssss'
 }
 
 export const enum ApiRoute {
@@ -15,11 +12,53 @@ export const enum ApiRoute {
   Orders = 'orders',
 }
 
+export enum GuitarType {
+  Acoustic = 'acoustic',
+  Electric = 'electric',
+  Ukulele = 'ukulele'
+}
+
+export const GuitarTypeLabel = {
+  [GuitarType.Acoustic]: 'Акустичесике гитары',
+  [GuitarType.Electric]: 'Электрогитары',
+  [GuitarType.Ukulele]: 'Укулеле',
+};
+
+export enum CordNumber {
+  Four = '4',
+  Six = '6',
+  Seven = '7',
+  Twelve = '12',
+}
+
+export const CordNumberLabel = {
+  [CordNumber.Four]: '4',
+  [CordNumber.Six]: '6',
+  [CordNumber.Seven]: '7',
+  [CordNumber.Twelve]: '12',
+};
+
+export enum FetchStatus {
+  Idle = 'IDLE',
+  Loading = 'LOADING',
+  Complete = 'COMPLETE',
+  Error = 'ERROR'
+}
+
+export enum FilterType {
+  Equals = 'EQUALS',
+  RangeFrom = 'RANGE_FROM',
+  RangeTo = 'RANGE_TO'
+}
+
 export enum OperatorQuery {
   Gte = '_gte',
   Like = '_like',
   Lte = '_lte'
 }
+
+export const PAGE_SIZE = 9;
+export const PAGINATION_START = 0;
 
 export enum PaginationQuery {
   End = '_end',
@@ -32,30 +71,14 @@ export enum SortQuery {
   Order = '_order'
 }
 
-export enum SortByType {
-  Price ='price',
-  Rating ='rating',
-}
-
-export enum SortByOrder {
+export enum SortOrder {
   Asc = 'asc',
   Desc = 'desc'
 }
 
-export const PAGE_SIZE = 9;
-export const PAGINATION_START = 0;
-
-export const GuitarTypeLabel = {
-  [GuitarType.Acoustic]: 'Акустичесике гитары',
-  [GuitarType.Electric]: 'Электрогитары',
-  [GuitarType.Ukulele]: 'Укулеле',
-};
-
-export const CordNumberLabel = {
-  [CordNumber.Four]: '4',
-  [CordNumber.Six]: '6',
-  [CordNumber.Seven]: '7',
-  [CordNumber.Twelve]: '12',
-};
+export enum SortType {
+  Price ='price',
+  Rating ='rating',
+}
 
 

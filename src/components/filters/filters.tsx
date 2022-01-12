@@ -1,17 +1,25 @@
-/* eslint-disable no-console */
 import { ChangeEvent, useEffect, useState } from 'react';
-import { CordNumberLabel, GuitarTypeLabel } from 'constants/constants';
 import {
   CordNumber,
+  CordNumberLabel,
   FetchStatus,
-  FilterSetAction,
-  FilterState,
   FilterType,
   GuitarType,
+  GuitarTypeLabel,
   OperatorQuery
+} from 'constants/constants';
+import {
+  FilterSetAction,
+  FilterState
 } from 'types/types';
-import { fetchPrice, selectMaxPrice, selectMinPrice, selectPriceFetchStatus } from 'features/price/priceSlice';
+import {
+  fetchPrice,
+  selectMaxPrice,
+  selectMinPrice,
+  selectPriceFetchStatus
+} from 'features/priceSlice/priceSlice';
 import { useAppDispatch, useAppSelector } from 'hooks';
+import Loader from 'components/shared/loader/loader';
 import PriceFilter from './components/priceFilter/priceFilter';
 
 type FiltersProps = {
@@ -30,8 +38,8 @@ const getAvailableCords = (guitarTypes: GuitarType[]): CordNumber[] => {
     return Object.values(CordNumber);
   }
 
-  const result = guitarTypes.reduce<CordNumber[]>((acc, value) => [...acc, ...GuitarCordCount[value]], []);
-  console.log('result', result);
+  const result = guitarTypes.reduce<CordNumber[]>((acc, value) =>
+    [...acc, ...GuitarCordCount[value]], []);
 
   return Array.from(new Set(result));
 };
@@ -154,17 +162,19 @@ export default function Filters(props: FiltersProps): JSX.Element {
       <h2 className="title title--bigger catalog-filter__title">Фильтр</h2>
       <fieldset className="catalog-filter__block">
         <legend className="catalog-filter__block-title">Цена, ₽</legend>
-        <div className="catalog-filter__price-range">
-          {priceStatsFetchStatus === FetchStatus.Loading && <div>Загрука</div>}
-          {priceStatsFetchStatus === FetchStatus.Complete && (
+        {priceStatsFetchStatus === FetchStatus.Loading && <Loader />}
+
+        {priceStatsFetchStatus === FetchStatus.Complete && (
+          <div className="catalog-filter__price-range">
             <PriceFilter
               onChange={handlePriceFilterChange}
               maxPriceLimit={maxPriceLimit as number}
               minPriceLimit={minPriceLimit as number}
               priceValue={priceFilter}
             />
-          )}
-        </div>
+          </div>
+        )}
+
       </fieldset>
       <fieldset className="catalog-filter__block">
         <legend className="catalog-filter__block-title">Тип гитар</legend>
@@ -181,6 +191,7 @@ export default function Filters(props: FiltersProps): JSX.Element {
               id={guitarType}
               name={guitarType}
               value={guitarType}
+              data-testid={`${guitarType}-checkbox`}
             />
             <label htmlFor={guitarType}>
               {GuitarTypeLabel[guitarType]}

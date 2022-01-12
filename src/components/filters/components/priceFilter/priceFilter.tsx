@@ -92,6 +92,7 @@ export default function PriceFilter(props: PriceFilterProps) {
           placeholder={minPriceLimit.toString()}
           type="number"
           value={priceRange[InputName.From]}
+          data-testid='min-price'
         />
       </div>
       <div className="form-input">
@@ -102,6 +103,7 @@ export default function PriceFilter(props: PriceFilterProps) {
           name={InputName.To}
           type="number"
           value={priceRange[InputName.To]}
+          data-testid='max-price'
         />
       </div>
     </>

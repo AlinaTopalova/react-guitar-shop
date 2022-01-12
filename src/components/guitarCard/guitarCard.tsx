@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import { Guitar } from 'types/data';
+import { Guitar } from 'types/types';
 
 const STARS_MAX_AMOUNT = 5;
 

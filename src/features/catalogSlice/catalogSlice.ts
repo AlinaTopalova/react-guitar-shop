@@ -1,16 +1,20 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import qs from 'qs';
 import { fetchGuitars } from 'api';
-import { PAGE_SIZE, PAGINATION_START, SortQuery } from 'constants/constants';
-import { RootState } from 'store';
 import {
   FetchStatus,
+  FilterType,
+  OperatorQuery,
+  PAGE_SIZE,
+  PaginationQuery,
+  PAGINATION_START,
+  SortQuery
+} from 'constants/constants';
+import { RootState } from 'store';
+import {
   FilterSetAction,
   FilterState,
-  FilterType,
   Guitar,
-  OperatorQuery,
-  PaginationQuery,
   PaginationState,
   SortState
 } from 'types/types';

@@ -31,7 +31,7 @@ export const searchSlice = createSlice({
     loadSimilarGuitars: (state, action: PayloadAction<Guitar[]>) => {
       state.similarGuitars = action.payload;
     },
-    clearSimilarGuitars: (state, action: PayloadAction<Guitar[]>) => {
+    clearSimilarGuitars: (state) => {
       state.similarGuitars = initialState.similarGuitars;
     },
   },

@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
-import catalogReducer from 'features/catalog/catalogSlice';
-import searchReducer from 'features/search/searchSlice';
-import priceReducer from 'features/price/priceSlice';
+import catalogReducer from 'features/catalogSlice/catalogSlice';
+import searchReducer from 'features/searchSlice/searchSlice';
+import priceReducer from 'features/priceSlice/priceSlice';
 
 export const store = configureStore({
   reducer: {

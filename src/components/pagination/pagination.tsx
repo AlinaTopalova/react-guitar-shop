@@ -1,8 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { PaginationState } from 'types/types';
 
-const newId = uuidv4();
-
 type PaginationProps = {
   onPageChange: (paginationState: PaginationState) => void,
   pagination: PaginationState,
@@ -43,7 +41,7 @@ export default function Pagination(props: PaginationProps): JSX.Element {
           const isActive =currentPage === pageNum;
           return (
             <li
-              key={newId}
+              key={uuidv4()}
               className={`pagination__page ${isActive ? 'pagination__page--active' : ''}`}
               onClick={(evt) => {
                 evt.preventDefault();
