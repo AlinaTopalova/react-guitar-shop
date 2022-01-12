@@ -19,7 +19,7 @@ describe('CatalogSlice', () => {
     sortingState: undefined,
     isEmpty: false,
     paginationState: defaultPagination,
-    totalAmount: undefined,
+    totalAmount: 1,
   };
 
   it('should return filters state', () => {
@@ -39,7 +39,7 @@ describe('CatalogSlice', () => {
           sortingState: undefined,
           isEmpty: false,
           paginationState: defaultPagination,
-          totalAmount: undefined,
+          totalAmount: 1,
         },
       );
   });
@@ -55,7 +55,7 @@ describe('CatalogSlice', () => {
           sortingState: {type: 'price', order: 'asc'},
           isEmpty: false,
           paginationState: defaultPagination,
-          totalAmount: undefined,
+          totalAmount: 1,
         },
       );
   });
@@ -71,7 +71,7 @@ describe('CatalogSlice', () => {
           sortingState: undefined,
           isEmpty: false,
           paginationState: {start: 10, end: 16},
-          totalAmount: undefined,
+          totalAmount: 1,
         },
       );
   });
@@ -88,7 +88,7 @@ describe('catalogSlice', () => {
       sortingState: undefined,
       isEmpty: false,
       paginationState: defaultPagination,
-      totalAmount: undefined,
+      totalAmount: 1,
     };
 
     it('sets fetchStatus loading when fetchList is pending', () => {
@@ -141,7 +141,7 @@ describe('catalogSlice', () => {
         sortingState: undefined,
         isEmpty: false,
         paginationState: defaultPagination,
-        totalAmount: undefined,
+        totalAmount: 1,
       });
     });
   });

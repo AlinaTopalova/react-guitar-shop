@@ -27,7 +27,7 @@ type State = {
   sortingState: SortState;
   isEmpty: boolean;
   paginationState: PaginationState;
-  totalAmount?: number;
+  totalAmount: number;
 };
 
 const { filter: initialFilter, pagination: initialPagination } = qs.parse(
@@ -49,7 +49,7 @@ const initialState: State = {
   sortingState: undefined,
   isEmpty: false,
   paginationState: (initialPagination as PaginationState | undefined) || defaultPagination,
-  totalAmount: undefined,
+  totalAmount: 1,
 };
 
 export const fetchCatalog = createAsyncThunk(

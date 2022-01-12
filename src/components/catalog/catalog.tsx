@@ -98,7 +98,7 @@ export default function Catalog(): JSX.Element {
             onPageChange={handlePageChange}
             pagination={catalogPagination}
             size={PAGE_SIZE}
-            total={totalCatalogItems!}
+            total={totalCatalogItems}
           />
         </>
       ))}
