@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'hooks';

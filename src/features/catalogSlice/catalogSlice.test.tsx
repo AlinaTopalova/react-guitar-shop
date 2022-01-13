@@ -103,7 +103,7 @@ describe('catalogSlice', () => {
         sortingState: undefined,
         isEmpty: false,
         paginationState: defaultPagination,
-        totalAmount: undefined,
+        totalAmount: 1,
       });
     });
 
