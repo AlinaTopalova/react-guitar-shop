@@ -1,17 +1,21 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import {
   clearSimilarGuitars,
   fetchGuitars,
+  selectSearchValue,
   selectSimilarGuitars,
   setSearchValue
 } from 'features/searchSlice/searchSlice';
+import { sortSimilarGuitars } from 'utils.ts/sort';
 
 export default function HeaderSearch(): JSX.Element {
   const [isSelectListOpen, setIsSelectListOpen] = useState<boolean>(false);
 
   const similarGuitars = useAppSelector(selectSimilarGuitars);
+
+  const inputValue = useAppSelector(selectSearchValue);
 
   const dispatch = useAppDispatch();
 
@@ -42,6 +46,11 @@ export default function HeaderSearch(): JSX.Element {
       document.removeEventListener('click', handleOutsideClick);
     };
   }, [dispatch]);
+
+  const sortedGuitars = useMemo(
+    () => (similarGuitars ? sortSimilarGuitars(similarGuitars, inputValue) : similarGuitars),
+    [inputValue, similarGuitars],
+  );
 
   return (
     <div
@@ -80,7 +89,7 @@ export default function HeaderSearch(): JSX.Element {
         style={{zIndex: 1}}
         tabIndex={0}
       >
-        {similarGuitars.map((similarGuitar) => (
+        {sortedGuitars.map((similarGuitar) => (
           <li
             key={similarGuitar.id}
             className="form-search__select-item"
