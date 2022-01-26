@@ -8,7 +8,8 @@ import {
   selectSimilarGuitars,
   setSearchValue
 } from 'features/searchSlice/searchSlice';
-import { sortSimilarGuitars } from 'utils.ts/sort';
+import { sortSimilarGuitars } from 'utils/utils';
+import { AppRoute } from 'constants/constants';
 
 export default function HeaderSearch(): JSX.Element {
   const [isSelectListOpen, setIsSelectListOpen] = useState<boolean>(false);
@@ -21,6 +22,11 @@ export default function HeaderSearch(): JSX.Element {
 
   const searchRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
+  const sortedGuitars = useMemo(
+    () => (similarGuitars ? sortSimilarGuitars(similarGuitars, inputValue) : similarGuitars),
+    [inputValue, similarGuitars],
+  );
+
   const handleSearchInputChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(setSearchValue(evt.target.value));
     if (evt.target.value) {
@@ -30,6 +36,11 @@ export default function HeaderSearch(): JSX.Element {
       setIsSelectListOpen(false);
       dispatch(clearSimilarGuitars());
     }
+  };
+
+  const handleSelectGuitarClick = () => {
+    setIsSelectListOpen(false);
+    dispatch(clearSimilarGuitars());
   };
 
   useEffect(() => {
@@ -46,11 +57,6 @@ export default function HeaderSearch(): JSX.Element {
       document.removeEventListener('click', handleOutsideClick);
     };
   }, [dispatch]);
-
-  const sortedGuitars = useMemo(
-    () => (similarGuitars ? sortSimilarGuitars(similarGuitars, inputValue) : similarGuitars),
-    [inputValue, similarGuitars],
-  );
 
   return (
     <div
@@ -81,6 +87,7 @@ export default function HeaderSearch(): JSX.Element {
           type="text"
           autoComplete="off"
           placeholder="что вы ищите?"
+          value={inputValue}
         />
         <label className="visually-hidden" htmlFor="search">Поиск</label>
       </form>
@@ -91,12 +98,13 @@ export default function HeaderSearch(): JSX.Element {
       >
         {sortedGuitars.map((similarGuitar) => (
           <li
+            onClick={handleSelectGuitarClick}
             key={similarGuitar.id}
             className="form-search__select-item"
             tabIndex={1}
           >
             <Link
-              to='/'
+              to={`${AppRoute.Guitar}/${similarGuitar.id}`}
               className="form-search__select-item"
             >
               {similarGuitar.name}

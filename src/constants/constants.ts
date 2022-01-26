@@ -1,6 +1,9 @@
+export const STARS_MAX_AMOUNT = 5;
+
 export const enum AppRoute {
   Main = '/',
   Catalog = '/catalog',
+  Guitar = '/guitars',
 }
 
 export const enum ApiRoute {
@@ -18,8 +21,14 @@ export enum GuitarType {
   Ukulele = 'ukulele'
 }
 
+export const GuitarTypeName  = {
+  [GuitarType.Acoustic]: 'Акустическая',
+  [GuitarType.Electric]: 'Электрогитара',
+  [GuitarType.Ukulele]: 'Укулеле',
+};
+
 export const GuitarTypeLabel = {
-  [GuitarType.Acoustic]: 'Акустичесике гитары',
+  [GuitarType.Acoustic]: 'Акустические гитары',
   [GuitarType.Electric]: 'Электрогитары',
   [GuitarType.Ukulele]: 'Укулеле',
 };
@@ -81,4 +90,35 @@ export enum SortType {
   Rating ='rating',
 }
 
+export enum TabName {
+  Characteristics = 'Характеристики',
+  Description = 'Описание',
+}
 
+export enum ModalType {
+  ModalNewReview = 'ModalNewReview',
+  ModalSuccess = 'ModalSuccess',
+}
+
+export const Ratings = [
+  {
+    title: 'Отлично',
+    value: '5',
+  },
+  {
+    title: 'Хорошо',
+    value: '4',
+  },
+  {
+    title: 'Нормально',
+    value: '3',
+  },
+  {
+    title: 'Плохо',
+    value: '2',
+  },
+  {
+    title: 'Ужасно',
+    value: '1',
+  },
+];

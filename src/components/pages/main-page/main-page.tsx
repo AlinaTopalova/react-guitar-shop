@@ -8,7 +8,7 @@ export default function MainPage(): JSX.Element {
 
   return (
     <div className="wrapper">
-      <Header />
+      <Header isMainPage/>
       <main className="page-content">
         <div className="container">
           <h1 className="page-content__title title title--bigger">Каталог гитар</h1>
@@ -17,13 +17,13 @@ export default function MainPage(): JSX.Element {
               <Link to={AppRoute.Main} className="link">Главная</Link>
             </li>
             <li className="breadcrumbs__item">
-              <a href="/" className="link">Каталог</a>
+              <Link to={'/'} className="link">Каталог</Link>
             </li>
           </ul>
           <Catalog />
         </div>
       </main>
-      <Footer />
+      <Footer isMainPage/>
     </div>
   );
 }

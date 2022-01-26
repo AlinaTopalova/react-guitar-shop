@@ -1,14 +1,23 @@
 import { FilterType, GuitarType } from 'constants/constants';
 
-export type Comments = {
+export type Comment = {
   id: string,
   userName: string,
   advantage: string,
   disadvantage: string,
   comment: string,
   rating: number,
-  createAt: Date,
+  createAt: string,
   guitarId: number,
+}
+
+export type NewComment = {
+  guitarId: number,
+  userName: string,
+  advantage: string,
+  disadvantage: string,
+  comment: string,
+  rating: number,
 }
 
 export type Guitar = {
@@ -21,7 +30,7 @@ export type Guitar = {
   stringCount: number;
   type: GuitarType;
   vendorCode: string;
-  comments?: Comments[],
+  comments?: Comment[],
 };
 
 export type FilterState = Record<

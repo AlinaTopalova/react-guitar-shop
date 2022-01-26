@@ -1,30 +1,28 @@
 import { Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { store } from 'mock';
-import Catalog from './catalog';
+import ModalSuccessReview from './modal-success-review';
+import { ModalType } from 'constants/constants';
 
 const history = createMemoryHistory();
-const mockStore = configureMockStore([thunk]);
+const mockStore = configureMockStore();
+const onClose = jest.fn();
 
-describe('Component: CatalogPage', () => {
+describe('Component: ModalSuccess', () => {
 
-  it('should render correctly', () => {
+  it('should render correctly Component: ModalSuccess', () => {
 
     render(
       <Provider store={mockStore(store)}>
         <Router history={history}>
-          <Catalog />
+          <ModalSuccessReview onClose={onClose} modalType={ModalType.ModalSuccess}/>
         </Router>,
       </Provider>,
     );
 
-    expect(screen.getByText(/Сортировать/i)).toBeInTheDocument();
-    expect(screen.getByText(/Тип гитар/i)).toBeInTheDocument();
+    expect(screen.getByText(/Спасибо за/i)).toBeInTheDocument();
   });
 });
-
-

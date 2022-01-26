@@ -33,6 +33,7 @@ export const searchSlice = createSlice({
     },
     clearSimilarGuitars: (state) => {
       state.similarGuitars = initialState.similarGuitars;
+      state.searchValue = initialState.searchValue;
     },
   },
   extraReducers: (builder) => {

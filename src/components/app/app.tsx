@@ -2,6 +2,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { AppRoute } from 'constants/constants';
 import MainPage from 'components/pages/main-page/main-page';
 import NotFoundPage from 'components/pages/not-found-page/not-found-page';
+import GuitarPage from 'components/pages/guitar-page/guitar-page';
 
 export default function App(): JSX.Element {
 
@@ -12,6 +13,9 @@ export default function App(): JSX.Element {
       </Route>
       <Route exact path={AppRoute.Catalog}>
         <MainPage />
+      </Route>
+      <Route exact path={`${AppRoute.Guitar}/:guitarId`}>
+        <GuitarPage />
       </Route>
       <Route>
         <NotFoundPage />

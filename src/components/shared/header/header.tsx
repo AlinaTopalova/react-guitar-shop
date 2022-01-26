@@ -1,23 +1,45 @@
 import HeaderSearch from 'components/shared/header-search/header-search';
+import { AppRoute } from 'constants/constants';
+import { Link } from 'react-router-dom';
 
-export default function Header (): JSX.Element {
+type HeaderProps = {
+  isMainPage?: boolean,
+}
+
+export default function Header(props: HeaderProps): JSX.Element {
+  const { isMainPage = false } = props;
 
   return (
     <header className="header" id="header">
       <div className="container header__wrapper">
-        <a className="header__logo logo" href="/">
-          <img className="logo__img" width="70" height="70" src="./img/svg/logo.svg" alt="Логотип" />
-        </a>
+        <Link
+          className="header__logo logo"
+          style={{ pointerEvents: isMainPage ? 'none' : 'auto' }}
+          to={AppRoute.Main}
+        >
+          <img
+            className="logo__img"
+            width="70"
+            height="70"
+            src="/img/svg/logo.svg"
+            alt="Логотип"
+          />
+        </Link>
         <nav className="main-nav">
           <ul className="main-nav__list">
             <li>
-              <a className="link main-nav__link link--current" href="/">Каталог</a>
+              <Link
+                className={`link main-nav__link ${isMainPage ? 'link--current' : ''}`}
+                to={AppRoute.Catalog}
+              >
+                  Каталог
+              </Link>
             </li>
             <li>
-              <a className="link main-nav__link" href="/">Где купить?</a>
+              <Link className="link main-nav__link" to={'/'}>Где купить?</Link>
             </li>
             <li>
-              <a className="link main-nav__link" href="/">О компании</a>
+              <Link className="link main-nav__link" to={'/'}>О компании</Link>
             </li>
           </ul>
         </nav>

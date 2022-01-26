@@ -1,7 +1,7 @@
+import { AppRoute, STARS_MAX_AMOUNT } from 'constants/constants';
 import { nanoid } from 'nanoid';
+import { Link } from 'react-router-dom';
 import { Guitar } from 'types/types';
-
-const STARS_MAX_AMOUNT = 5;
 
 const stars = Array.from({length: STARS_MAX_AMOUNT});
 
@@ -20,10 +20,13 @@ export default function GuitarCard(props: GuitarCardProps): JSX.Element {
           <span className="visually-hidden">Рейтинг:</span>
           {stars.map((star, index) => (
             <svg key={nanoid()} width="12" height="11" aria-hidden="true">
-              <use xlinkHref={index < Math.floor(guitar.rating) ? '#icon-full-star' : '#icon-star'}></use>
+              <use xlinkHref={index < Math.floor(guitar.rating)
+                ? '#icon-full-star'
+                : '#icon-star'}
+              >
+              </use>
             </svg>
-          ),
-          )}
+          ))}
           <span className="rate__count">{guitar.comments?.length}</span>
           <span className="rate__message"></span>
         </div>
@@ -32,8 +35,18 @@ export default function GuitarCard(props: GuitarCardProps): JSX.Element {
         </p>
       </div>
       <div className="product-card__buttons">
-        <a className="button button--mini" href="/">Подробнее</a>
-        <a className="button button--red button--mini button--add-to-cart" href="/">Купить</a>
+        <Link
+          to={`${AppRoute.Guitar}/${guitar.id}`}
+          className="button button--mini"
+        >
+          Подробнее
+        </Link>
+        <a
+          className="button button--red button--mini button--add-to-cart"
+          href="/"
+        >
+          Купить
+        </a>
       </div>
     </div>
   );

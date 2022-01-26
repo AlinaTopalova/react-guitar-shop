@@ -1,5 +1,5 @@
 import { FetchStatus, GuitarType, PAGE_SIZE, PAGINATION_START } from 'constants/constants';
-import { Guitar } from 'types/types';
+import { Guitar, Comment } from 'types/types';
 
 export const guitarMock: Guitar = {
   id: 25,
@@ -150,4 +150,54 @@ export const store = {
     minPrice: 1700,
     maxPrice: 35000,
   },
+  guitar: {
+    commentsFetchStatus: FetchStatus.Complete,
+    newCommentFetchStatus: FetchStatus.Complete,
+    comments: [],
+  },
 };
+
+export const CommentsMock: Comment[] = [
+  {
+    id: '5',
+    userName: 'Саша',
+    advantage: 'Хорошо. Очень хорошо.',
+    disadvantage: 'Плохо. Очень плохо.',
+    comment: 'Неплохо, но дорого.',
+    rating: 3,
+    createAt: '2021-10-28T12:32:16.934Z',
+    guitarId: 5,
+  },
+  {
+    id: '5',
+    userName: 'Саша',
+    advantage: 'Хорошо. Очень хорошо.',
+    disadvantage: 'Плохо. Очень плохо.',
+    comment: 'Неплохо, но дорого.',
+    rating: 3,
+    createAt: '2021-10-28T12:32:16.934Z',
+    guitarId: 5,
+  },
+  {
+    id: '5',
+    userName: 'Саша',
+    advantage: 'Хорошо. Очень хорошо.',
+    disadvantage: 'Плохо. Очень плохо.',
+    comment: 'Неплохо, но дорого.',
+    rating: 3,
+    createAt: '2021-10-28T12:32:16.934Z',
+    guitarId: 5,
+  },
+];
+
+//   {
+//     id: 'a7c267d0-a72d-41bd-8b8e-e7f67800d58a',
+//     userName: 'Саша',
+//     advantages: 'Хорошо. Очень хорошо.',
+//     disadvantages: 'Плохо. Очень плохо.',
+//     comment: 'Неплохо, но дорого.',
+//     rating: 3,
+//     createAt: '2021-10-28T12:32:16.934Z',
+//     guitarId: 1,
+//   },
+// ];

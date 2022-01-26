@@ -445,7 +445,7 @@ html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 
-  scroll-behavior: smooth;
+  scroll-behavior: instant;
 }
 
 html,
@@ -812,6 +812,7 @@ button,
   min-height: 275px;
   padding-top: 66px;
   padding-bottom: 15px;
+  margin-top: auto;
 
   background-color: #131212;
 }
@@ -2734,7 +2735,7 @@ button,
 
 .reviews__up-button {
   right: 0;
-  bottom: -51px;
+  bottom: -60px;
   position: absolute;
 }
 

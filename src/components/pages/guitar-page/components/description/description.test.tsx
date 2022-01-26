@@ -3,26 +3,25 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import { store } from 'mock';
-import Header from './header';
+import { guitarMock, store } from 'mock';
+import Description from './description';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
 
-describe('Component: Header', () => {
+describe('Component: ModalSuccess', () => {
 
-  it('should render correctly Component: Header', () => {
+  it('should render correctly Component: ModalSuccess', () => {
 
     render(
       <Provider store={mockStore(store)}>
         <Router history={history}>
-          <Header isMainPage/>
+          <Description currentGuitar={guitarMock} />
         </Router>,
       </Provider>,
     );
 
-    expect(screen.getByText(/Перейти в корзину/i)).toBeInTheDocument();
-    expect(screen.getByText(/Где купить/i)).toBeInTheDocument();
-    expect(screen.getByText(/О компании/i)).toBeInTheDocument();
+    expect(screen.getByText(/Артикул/i)).toBeInTheDocument();
+    expect(screen.getByText(/Количество струн/i)).toBeInTheDocument();
   });
 });
