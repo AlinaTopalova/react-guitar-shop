@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
-import { nanoid } from 'nanoid';
 import {
   AppRoute,
   FetchStatus,
@@ -12,6 +11,7 @@ import { Guitar } from 'types/types';
 import { useAppDispatch, useAppSelector } from 'hooks';
 import {
   fetchReviews,
+  selectComments,
   selectNewCommentFetchStatus
 } from 'features/guitarSlice/guitarSlice';
 import Footer from 'components/shared/footer/footer';
@@ -35,6 +35,8 @@ export default function GuitarPage(): JSX.Element {
   const [activeModal, setActiveModal] = useState<ModalType | null>(null);
 
   const newCommentFetchStatus = useAppSelector(selectNewCommentFetchStatus);
+
+  const reviews = useAppSelector(selectComments);
 
   const dispatch = useAppDispatch();
 
@@ -125,12 +127,12 @@ export default function GuitarPage(): JSX.Element {
                   <span className="visually-hidden">Рейтинг:</span>
                   {currentGuitar && (
                     stars.map((_, index: number) => (
-                      <svg key={nanoid()} width="12" height="11" aria-hidden="true">
+                      <svg key={index.toString()} width="12" height="11" aria-hidden="true">
                         <use xlinkHref={index < Math.floor(currentGuitar.rating) ? '#icon-full-star' : '#icon-star'}></use>
                       </svg>
                     ))
                   )}
-                  <span className="rate__count"></span>
+                  <span className="rate__count">{reviews.length}</span>
                   <span className="rate__message"></span>
                 </div>
                 <Description currentGuitar={currentGuitar} />
@@ -140,7 +142,7 @@ export default function GuitarPage(): JSX.Element {
                   Цена:
                 </p>
                 <p className="product-container__price-info product-container__price-info--value">
-                  {currentGuitar.price}
+                  {currentGuitar.price} ₽
                 </p>
                 <a
                   className="button button--red button--big product-container__button"
@@ -152,6 +154,7 @@ export default function GuitarPage(): JSX.Element {
             </div>
             <Reviews
               onClick={handleModalNewReviewClick}
+              reviews={reviews}
             />
           </div>
         </main>

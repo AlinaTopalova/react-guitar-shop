@@ -2,12 +2,12 @@ import 'dayjs/locale/ru';
 import { useMemo, useState } from 'react';
 import { nanoid } from 'nanoid';
 import { getFormatDate } from 'utils/utils';
-import { useAppSelector } from 'hooks';
-import { selectComments } from 'features/guitarSlice/guitarSlice';
+import { Comment } from 'types/types';
 import { STARS_MAX_AMOUNT } from 'constants/constants';
 
 type ReviewsProps = {
   onClick: () => void,
+  reviews: Comment[],
 }
 
 const MAX_REVIEWS_AMOUNT = 3;
@@ -15,11 +15,9 @@ const MAX_REVIEWS_AMOUNT = 3;
 const stars = Array.from({length: STARS_MAX_AMOUNT});
 
 export default function Reviews(props: ReviewsProps): JSX.Element {
-  const { onClick } = props;
+  const { onClick, reviews } = props;
 
   const [numberOfReviewsShown, setNumberOfReviewsShown] = useState<number>(MAX_REVIEWS_AMOUNT);
-
-  const reviews = useAppSelector(selectComments);
 
   const sortedReviews = useMemo(() =>
     [...reviews].sort((a, b) =>
@@ -65,7 +63,7 @@ export default function Reviews(props: ReviewsProps): JSX.Element {
           <div className="rate review__rating-panel" aria-hidden="true">
             <span className="visually-hidden">Рейтинг:</span>
             {stars.map((_, index: number) => (
-              <svg key={nanoid()} width="12" height="11" aria-hidden="true">
+              <svg key={index.toString()} width="12" height="11" aria-hidden="true">
                 <use
                   xlinkHref={index < Math.floor(review.rating)
                     ? '#icon-full-star'

@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import { store } from 'mock';
+import { CommentsMock, store } from 'mock';
 import Reviews from './reviews';
 
 const history = createMemoryHistory();
@@ -17,7 +17,7 @@ describe('Component: Reviews', () => {
     render(
       <Provider store={mockStore(store)}>
         <Router history={history}>
-          <Reviews onClick={onClose}/>
+          <Reviews onClick={onClose} reviews={CommentsMock}/>
         </Router>,
       </Provider>,
     );

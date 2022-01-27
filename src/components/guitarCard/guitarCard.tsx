@@ -1,5 +1,4 @@
 import { AppRoute, STARS_MAX_AMOUNT } from 'constants/constants';
-import { nanoid } from 'nanoid';
 import { Link } from 'react-router-dom';
 import { Guitar } from 'types/types';
 
@@ -19,7 +18,7 @@ export default function GuitarCard(props: GuitarCardProps): JSX.Element {
         <div className="rate product-card__rate" aria-hidden="true">
           <span className="visually-hidden">Рейтинг:</span>
           {stars.map((star, index) => (
-            <svg key={nanoid()} width="12" height="11" aria-hidden="true">
+            <svg key={index.toString()} width="12" height="11" aria-hidden="true">
               <use xlinkHref={index < Math.floor(guitar.rating)
                 ? '#icon-full-star'
                 : '#icon-star'}

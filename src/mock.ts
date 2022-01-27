@@ -1,4 +1,9 @@
-import { FetchStatus, GuitarType, PAGE_SIZE, PAGINATION_START } from 'constants/constants';
+import {
+  FetchStatus,
+  GuitarType,
+  PAGE_SIZE,
+  PAGINATION_START
+} from 'constants/constants';
 import { Guitar, Comment } from 'types/types';
 
 export const guitarMock: Guitar = {
@@ -189,15 +194,3 @@ export const CommentsMock: Comment[] = [
     guitarId: 5,
   },
 ];
-
-//   {
-//     id: 'a7c267d0-a72d-41bd-8b8e-e7f67800d58a',
-//     userName: 'Саша',
-//     advantages: 'Хорошо. Очень хорошо.',
-//     disadvantages: 'Плохо. Очень плохо.',
-//     comment: 'Неплохо, но дорого.',
-//     rating: 3,
-//     createAt: '2021-10-28T12:32:16.934Z',
-//     guitarId: 1,
-//   },
-// ];
