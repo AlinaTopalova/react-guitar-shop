@@ -4,7 +4,7 @@ import {
   PAGE_SIZE,
   PAGINATION_START
 } from 'constants/constants';
-import { Guitar, Comment } from 'types/types';
+import { Guitar, Comment, Cart } from 'types/types';
 
 export const guitarMock: Guitar = {
   id: 25,
@@ -16,6 +16,38 @@ export const guitarMock: Guitar = {
   stringCount: 7,
   rating: 4,
   price: 17500,
+};
+
+export const guitarToBuyMock = {
+  amount: 5,
+  details: {
+    id: 25,
+    name: 'Честер Bass',
+    vendorCode: 'SO757575',
+    type: GuitarType.Electric,
+    description: 'Вариант для настоящих профессионалов. Двенадцатиструнный инструмент оснащён карбоновыми струнами и корпусом из массива ели.',
+    previewImg: 'img/guitar-1.jpg',
+    stringCount: 7,
+    rating: 4,
+    price: 17500,
+  },
+};
+
+export const cartGuitarsMock: Cart = {
+  '25': {
+    amount: 2,
+    details: {
+      id: 25,
+      name: 'Честер Bass',
+      vendorCode: 'SO757575',
+      type: GuitarType.Electric,
+      description: 'Вариант для настоящих профессионалов. Двенадцатиструнный инструмент оснащён карбоновыми струнами и корпусом из массива ели.',
+      previewImg: 'img/guitar-1.jpg',
+      stringCount: 7,
+      rating: 4,
+      price: 17500,
+    },
+  },
 };
 
 export const guitarsList: Guitar[]  = [
@@ -159,6 +191,12 @@ export const store = {
     commentsFetchStatus: FetchStatus.Complete,
     newCommentFetchStatus: FetchStatus.Complete,
     comments: [],
+  },
+  cart: {
+    goods: {},
+    couponValue: '',
+    discount: 0,
+    couponStatus: FetchStatus.Idle,
   },
 };
 

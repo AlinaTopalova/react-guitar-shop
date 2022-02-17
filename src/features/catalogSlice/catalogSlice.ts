@@ -1,4 +1,8 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk,
+  createSlice,
+  PayloadAction
+} from '@reduxjs/toolkit';
 import qs from 'qs';
 import { fetchGuitars } from 'api';
 import {
@@ -77,13 +81,10 @@ export const fetchCatalog = createAsyncThunk(
     if (sorting?.type) {
       query.append(SortQuery.Sort, sorting.type);
     }
-
     if (sorting?.order) {
       query.append(SortQuery.Order, sorting.order);
     }
-
     const { data, headers } = await fetchGuitars(query);
-
     return { data, total: Number(headers['x-total-count']) };
   },
 );

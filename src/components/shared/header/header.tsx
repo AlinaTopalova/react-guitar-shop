@@ -1,5 +1,7 @@
 import HeaderSearch from 'components/shared/header-search/header-search';
+import { useAppSelector } from 'hooks';
 import { AppRoute } from 'constants/constants';
+import { selectGuitarsInCart } from 'features/cartSlice/cartSlice';
 import { Link } from 'react-router-dom';
 
 type HeaderProps = {
@@ -8,6 +10,10 @@ type HeaderProps = {
 
 export default function Header(props: HeaderProps): JSX.Element {
   const { isMainPage = false } = props;
+
+  const guitarsInCart = useAppSelector(selectGuitarsInCart);
+
+  const guitarsInCartAmount = Object.values(guitarsInCart).reduce((acc, guitar) => acc + guitar.amount, 0);
 
   return (
     <header className="header" id="header">
@@ -44,16 +50,21 @@ export default function Header(props: HeaderProps): JSX.Element {
           </ul>
         </nav>
         <HeaderSearch />
-        <a className="header__cart-link" href="/" aria-label="Корзина">
+        <Link
+          className="header__cart-link"
+          to={AppRoute.Cart}
+          aria-label="Корзина"
+        >
           <svg className="header__cart-icon" width="14" height="14" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
           </svg>
           <span className="visually-hidden">Перейти в корзину</span>
-          <span className="header__cart-count">2</span>
-        </a>
+          <span className={`header__cart-count ${guitarsInCartAmount < 1 ? 'visually-hidden': ''}`}>
+            {guitarsInCartAmount}
+          </span>
+        </Link>
       </div>
     </header>
   );
 }
-
 

@@ -57,3 +57,17 @@ export type PaginationState = {
   start: number;
 };
 
+export type Cart = Record<string, {
+  amount: number,
+  details: Guitar
+}>
+
+export type GuitarToBuy = {
+  amount: number;
+  details: Guitar;
+}
+
+export type CouponType = {
+  'coupon': string,
+}
+

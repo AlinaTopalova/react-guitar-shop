@@ -3,26 +3,25 @@ import { Provider } from 'react-redux';
 import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import { guitarMock, store } from 'mock';
-import GuitarCard from './guitarCard';
+import { store } from 'mock';
+import CartCoupon from './cart-coupon';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
-const onClick = jest.fn();
 
-describe('Component: GuitarCard', () => {
+describe('Component: CartCoupon', () => {
 
-  it('should render correctly Component: GuitarCard', () => {
+  it('should render correctly Component: CartCoupon', () => {
 
     render(
       <Provider store={mockStore(store)}>
         <Router history={history}>
-          <GuitarCard onClick={onClick} guitar={guitarMock} />
+          <CartCoupon />
         </Router>,
       </Provider>,
     );
 
-    expect(screen.getByText(/Подробнее/i)).toBeInTheDocument();
-    expect(screen.getByText(/Купить/i)).toBeInTheDocument();
+    expect(screen.getByText(/Применить/i)).toBeInTheDocument();
+    expect(screen.getByText(/Промокод на скидку/i)).toBeInTheDocument();
   });
 });

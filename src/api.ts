@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { ApiRoute } from 'constants/constants';
-import { Comment, Guitar, NewComment } from './types/types';
+import { Comment, CouponType, Guitar, NewComment } from './types/types';
 
 export const API_URL = 'https://accelerator-guitar-shop-api-v1.glitch.me/';
 const timeout = 10000;
@@ -26,6 +26,10 @@ type PostNewReview = (
   newReview: NewComment,
 ) => Promise<AxiosResponse<NewComment>>;
 
+type PostCoupon = (
+  coupon: CouponType,
+) => Promise<AxiosResponse<number>>;
+
 export const fetchGuitars: FetchGuitarsData = (query) =>
   axiosInstance.get(ApiRoute.GuitarWithComments, { params: query });
 
@@ -42,6 +46,10 @@ export const fetchCurrentReviews: FetchCurrentReviews = (id: number) =>
 
 export const postNewReview: PostNewReview = (
   newReview,
-) => axiosInstance.post<Comment>('/comments', newReview);
+) => axiosInstance.post<Comment>(`${ApiRoute.Comments}`, newReview);
+
+export const postNewCoupon: PostCoupon = (
+  coupon,
+) => axiosInstance.post<number>(`${ApiRoute.Coupons}`, coupon);
 
 

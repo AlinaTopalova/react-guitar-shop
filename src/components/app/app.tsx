@@ -3,6 +3,7 @@ import { AppRoute } from 'constants/constants';
 import MainPage from 'components/pages/main-page/main-page';
 import NotFoundPage from 'components/pages/not-found-page/not-found-page';
 import GuitarPage from 'components/pages/guitar-page/guitar-page';
+import CartPage from 'components/pages/cart-page/cart-page';
 
 export default function App(): JSX.Element {
 
@@ -16,6 +17,9 @@ export default function App(): JSX.Element {
       </Route>
       <Route exact path={`${AppRoute.Guitar}/:guitarId`}>
         <GuitarPage />
+      </Route>
+      <Route exact path={AppRoute.Cart}>
+        <CartPage />
       </Route>
       <Route>
         <NotFoundPage />

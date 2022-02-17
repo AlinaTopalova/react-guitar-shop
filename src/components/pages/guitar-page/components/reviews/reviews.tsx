@@ -17,7 +17,10 @@ const stars = Array.from({length: STARS_MAX_AMOUNT});
 export default function Reviews(props: ReviewsProps): JSX.Element {
   const { onClick, reviews } = props;
 
-  const [numberOfReviewsShown, setNumberOfReviewsShown] = useState<number>(MAX_REVIEWS_AMOUNT);
+  const [
+    numberOfReviewsShown,
+    setNumberOfReviewsShown,
+  ] = useState<number>(MAX_REVIEWS_AMOUNT);
 
   const sortedReviews = useMemo(() =>
     [...reviews].sort((a, b) =>

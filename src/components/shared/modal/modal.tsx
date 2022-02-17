@@ -1,6 +1,5 @@
 import { useEffect, useRef } from 'react';
 import FocusLock from 'react-focus-lock';
-
 import { isEscEvent } from 'utils/utils';
 
 type ModalProps = {
@@ -9,7 +8,7 @@ type ModalProps = {
 }
 
 export default function Modal(props: ModalProps): JSX.Element {
-  const { onClose, children} = props;
+  const { onClose, children } = props;
 
   const overlayRef = useRef<HTMLDivElement>(null);
 

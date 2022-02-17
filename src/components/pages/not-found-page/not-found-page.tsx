@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from 'constants/constants';
 
-function NotFoundPage(): JSX.Element {
+export default function NotFoundPage(): JSX.Element {
 
   return (
     <div style={
@@ -27,5 +27,3 @@ function NotFoundPage(): JSX.Element {
     </div>
   );
 }
-
-export default NotFoundPage;

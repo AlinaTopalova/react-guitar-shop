@@ -3,6 +3,7 @@ import catalogReducer from 'features/catalogSlice/catalogSlice';
 import searchReducer from 'features/searchSlice/searchSlice';
 import priceReducer from 'features/priceSlice/priceSlice';
 import guitarSlice from 'features/guitarSlice/guitarSlice';
+import cartSlice from 'features/cartSlice/cartSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     price: priceReducer,
     search: searchReducer,
     guitar: guitarSlice,
+    cart: cartSlice,
   },
 });
 

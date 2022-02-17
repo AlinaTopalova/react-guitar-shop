@@ -1,9 +1,8 @@
-
 import { FormEvent, Fragment, useRef, useState } from 'react';
 import { useAppDispatch } from 'hooks';
 import { postReview } from 'features/guitarSlice/guitarSlice';
 import { Guitar } from 'types/types';
-import { ModalType, Ratings } from 'constants/constants';
+import { ModalType, Rating } from 'constants/constants';
 import Modal from 'components/shared/modal/modal';
 
 type ModalReviewsProps = {
@@ -57,7 +56,7 @@ export default function ModalReview(props: ModalReviewsProps): JSX.Element {
     formRef.current?.reset();
   };
 
-  const handleCloseButtonClick = () => {
+  const handleCloseBtnClick = () => {
     onClose();
     formRef.current?.reset();
   };
@@ -66,7 +65,7 @@ export default function ModalReview(props: ModalReviewsProps): JSX.Element {
     <div
       className={`modal modal--review ${modalType === ModalType.ModalNewReview ? 'is-active' : ''}`}
     >
-      <Modal onClose={handleCloseButtonClick}>
+      <Modal onClose={handleCloseBtnClick}>
         <h2 className="modal__header modal__header--review title title--medium">
           Оставить отзыв
         </h2>
@@ -97,7 +96,7 @@ export default function ModalReview(props: ModalReviewsProps): JSX.Element {
             <div>
               <span className="form-review__label form-review__label--required">Ваша Оценка</span>
               <div className="rate rate--reverse">
-                {Ratings.map(({ title, value }) => (
+                {Rating.map(({ title, value }) => (
                   <Fragment key={value}>
                     <input
                       onChange={() => setRateCount(value)}

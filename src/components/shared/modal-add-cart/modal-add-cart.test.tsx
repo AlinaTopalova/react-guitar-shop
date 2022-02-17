@@ -4,25 +4,31 @@ import { configureMockStore } from '@jedmao/redux-mock-store';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { guitarMock, store } from 'mock';
-import GuitarCard from './guitarCard';
+import { ModalType } from 'constants/constants';
+import ModalAddCart from './modal-add-cart';
 
 const history = createMemoryHistory();
 const mockStore = configureMockStore();
+const onClose = jest.fn();
 const onClick = jest.fn();
 
-describe('Component: GuitarCard', () => {
+describe('Component: ModalAddCart', () => {
 
-  it('should render correctly Component: GuitarCard', () => {
+  it('should render correctly Component: ModalAddCart', () => {
 
     render(
       <Provider store={mockStore(store)}>
         <Router history={history}>
-          <GuitarCard onClick={onClick} guitar={guitarMock} />
+          <ModalAddCart
+            modalType={ModalType.ModalAddCart}
+            activeGuitar={guitarMock}
+            onClose={onClose}
+            onClick={onClick}
+          />
         </Router>,
       </Provider>,
     );
 
-    expect(screen.getByText(/Подробнее/i)).toBeInTheDocument();
-    expect(screen.getByText(/Купить/i)).toBeInTheDocument();
+    expect(screen.getByText(/Добавить товар в корзину/i)).toBeInTheDocument();
   });
 });

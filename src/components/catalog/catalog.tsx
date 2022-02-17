@@ -1,7 +1,16 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from 'hooks';
-import { FilterSetAction, PaginationState, SortState } from 'types/types';
-import { FetchStatus, PAGE_SIZE } from 'constants/constants';
+import {
+  FilterSetAction,
+  Guitar,
+  PaginationState,
+  SortState
+} from 'types/types';
+import {
+  FetchStatus,
+  ModalType,
+  PAGE_SIZE
+} from 'constants/constants';
 import {
   fetchCatalog,
   selectData,
@@ -20,11 +29,16 @@ import GuitarCard from 'components/guitarCard/guitarCard';
 import Pagination from 'components/pagination/pagination';
 import Sorting from 'components/sorting/sorting';
 import Loader from 'components/shared/loader/loader';
+import ModalAddCart from 'components/shared/modal-add-cart/modal-add-cart';
+import ModalAddSuccess from 'components/shared/modal-add-success/modal-add-success';
 
 const CARDS_MAX_AMOUNT = 9;
 
 export default function Catalog(): JSX.Element {
-  const dispatch = useAppDispatch();
+
+  const [activeGuitar, setActiveGuitar] = useState<Guitar | null>(null);
+
+  const [activeModal, setActiveModal] = useState<ModalType | null>(null);
 
   const catalogData = useAppSelector(selectData);
 
@@ -39,6 +53,21 @@ export default function Catalog(): JSX.Element {
   const catalogPagination = useAppSelector(selectPagination);
 
   const totalCatalogItems = useAppSelector(selectTotalAmount);
+
+  const dispatch = useAppDispatch();
+
+  const handleBuyBtnClick = (guitar: Guitar) => {
+    setActiveGuitar(guitar);
+    setActiveModal(ModalType.ModalAddCart);
+  };
+
+  const handleAddCartBtnClick = () => {
+    setActiveModal(ModalType.ModalAddSuccess);
+  };
+
+  const handleCloseBtnClick = () => {
+    setActiveModal(null);
+  };
 
   const handleSortingChange = useCallback(
     (newSorting: SortState) => {
@@ -69,10 +98,35 @@ export default function Catalog(): JSX.Element {
         pagination: catalogPagination,
       }),
     );
-  }, [catalogFilter, catalogPagination, catalogSorting, dispatch]);
+  },
+  [
+    catalogFilter,
+    catalogPagination,
+    catalogSorting,
+    dispatch,
+  ],
+  );
+
+  useEffect(() => {
+    document.body.style.overflow = (activeModal !== null) ? 'hidden' : 'auto';
+  }, [activeModal]);
 
   return (
     <div className="catalog">
+      {activeGuitar && (
+        <>
+          <ModalAddCart
+            activeGuitar={activeGuitar}
+            onClose={handleCloseBtnClick}
+            modalType={activeModal}
+            onClick={handleAddCartBtnClick}
+          />
+          <ModalAddSuccess
+            modalType={activeModal}
+            onClose={handleCloseBtnClick}
+          />
+        </>
+      )}
       <Filters
         catalogFilter={catalogFilter}
         onFilterChange={handleFilterChange}
@@ -91,7 +145,11 @@ export default function Catalog(): JSX.Element {
         <>
           <div className="cards catalog__cards">
             {catalogData.slice(0, CARDS_MAX_AMOUNT).map((guitar) => (
-              <GuitarCard key={guitar.id} guitar={guitar} />
+              <GuitarCard
+                key={guitar.id}
+                guitar={guitar}
+                onClick={handleBuyBtnClick}
+              />
             ))}
           </div>
           <Pagination

@@ -22,8 +22,10 @@ import Reviews from './components/reviews/reviews';
 import ModalReview from './components/modal-review/modal-review';
 import ModalSuccessReview from './components/modal-success-review/modal-success-review';
 import Description from './components/description/description';
+import ModalAddCart from 'components/shared/modal-add-cart/modal-add-cart';
+import ModalAddSuccess from 'components/shared/modal-add-success/modal-add-success';
 
-const stars = Array.from({length: STARS_MAX_AMOUNT});
+const stars = Array.from({ length: STARS_MAX_AMOUNT });
 
 export default function GuitarPage(): JSX.Element {
   const { guitarId } = useParams<{ guitarId: string }>();
@@ -44,8 +46,17 @@ export default function GuitarPage(): JSX.Element {
     setActiveModal(ModalType.ModalNewReview);
   }, []);
 
-  const handleCloseButtonClick = () => {
+  const handleCloseBtnClick = () => {
     setActiveModal(null);
+  };
+
+  const handleAddCartBtnClick = () => {
+    setActiveModal(ModalType.ModalAddSuccess);
+  };
+
+  const handleAddCartClick = (evt: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    evt.preventDefault();
+    setActiveModal(ModalType.ModalAddCart);
   };
 
   useEffect(() => {
@@ -145,6 +156,7 @@ export default function GuitarPage(): JSX.Element {
                   {currentGuitar.price} ₽
                 </p>
                 <a
+                  onClick={handleAddCartClick}
                   className="button button--red button--big product-container__button"
                   href="/"
                 >
@@ -166,13 +178,23 @@ export default function GuitarPage(): JSX.Element {
     <div className="wrapper">
       {currentGuitar && (
         <>
+          <ModalAddCart
+            activeGuitar={currentGuitar}
+            onClose={handleCloseBtnClick}
+            modalType={activeModal}
+            onClick={handleAddCartBtnClick}
+          />
+          <ModalAddSuccess
+            modalType={activeModal}
+            onClose={handleCloseBtnClick}
+          />
           <ModalReview
             currentGuitar={currentGuitar}
-            onClose={handleCloseButtonClick}
+            onClose={handleCloseBtnClick}
             modalType={activeModal}
           />
           <ModalSuccessReview
-            onClose={handleCloseButtonClick}
+            onClose={handleCloseBtnClick}
             modalType={activeModal}
           />
         </>

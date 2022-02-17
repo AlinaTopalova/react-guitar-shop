@@ -1,9 +1,15 @@
+export const INITIAL_DISCOUNT = 0;
+export const MIN_GUITARS_AMOUNT = 1;
+export const MAX_GUITARS_AMOUNT = 99;
+export const PAGE_SIZE = 9;
+export const PAGINATION_START = 0;
 export const STARS_MAX_AMOUNT = 5;
 
 export const enum AppRoute {
   Main = '/',
   Catalog = '/catalog',
   Guitar = '/guitars',
+  Cart = '/cart',
 }
 
 export const enum ApiRoute {
@@ -66,9 +72,6 @@ export enum OperatorQuery {
   Lte = '_lte'
 }
 
-export const PAGE_SIZE = 9;
-export const PAGINATION_START = 0;
-
 export enum PaginationQuery {
   End = '_end',
   Limit = '_limit',
@@ -98,27 +101,36 @@ export enum TabName {
 export enum ModalType {
   ModalNewReview = 'ModalNewReview',
   ModalSuccess = 'ModalSuccess',
+  ModalAddCart = 'ModalAddCart',
+  ModalAddSuccess = 'ModalAddSuccess',
+  ModalDeleteGuitar = 'ModalDeleteGuitar',
 }
 
-export const Ratings = [
+export const Rating = [
   {
-    title: 'Отлично',
-    value: '5',
-  },
-  {
-    title: 'Хорошо',
-    value: '4',
-  },
-  {
-    title: 'Нормально',
-    value: '3',
+    title: 'Ужасно',
+    value: '1',
   },
   {
     title: 'Плохо',
     value: '2',
   },
   {
-    title: 'Ужасно',
-    value: '1',
+    title: 'Нормально',
+    value: '3',
+  },
+  {
+    title: 'Хорошо',
+    value: '4',
+  },
+  {
+    title: 'Отлично',
+    value: '5',
   },
 ];
+
+export enum Coupon  {
+  Light = 'light-333',
+  Medium = 'medium-444',
+  Height = 'height-555',
+}
