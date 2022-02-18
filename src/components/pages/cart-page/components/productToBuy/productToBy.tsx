@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -42,6 +43,17 @@ export default function ProductToBuy(props: ProductToBuyProps): JSX.Element {
     ));
   };
 
+  const handleAmountInputBlur = () => {
+    if (product.amount < 1) {
+      dispatch(setGuitarAmount(
+        {
+          amount: Number(MIN_GUITARS_AMOUNT),
+          details: product.details,
+        },
+      ));
+    }
+  };
+
   return (
     <div key={product.details.id} className="cart-item">
       <button
@@ -83,6 +95,7 @@ export default function ProductToBuy(props: ProductToBuyProps): JSX.Element {
         </button>
         <input
           onChange={handleAmountInputChanghe}
+          onBlur={handleAmountInputBlur}
           className="quantity__input"
           type="number"
           placeholder={product.amount.toString()}

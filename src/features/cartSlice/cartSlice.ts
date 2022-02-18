@@ -6,7 +6,7 @@ import {
 import {
   FetchStatus,
   INITIAL_DISCOUNT,
-  MAX_GUITARS_AMOUNT,
+  // MAX_GUITARS_AMOUNT,
   MIN_GUITARS_AMOUNT
 } from 'constants/constants';
 import { Cart, Guitar, GuitarToBuy } from 'types/types';
@@ -65,15 +65,7 @@ export const cartSlice = createSlice({
       const guitarId = action.payload.details.id;
       const amount = action.payload.amount;
 
-      if (amount > MAX_GUITARS_AMOUNT) {
-        state.goods[guitarId].amount = MAX_GUITARS_AMOUNT;
-      }
-      else if (amount < MIN_GUITARS_AMOUNT) {
-        state.goods[guitarId].amount = MIN_GUITARS_AMOUNT;
-      }
-      else {
-        state.goods[guitarId].amount = amount;
-      }
+      state.goods[guitarId].amount = amount;
     },
     deleteGuitarInCart: (state, action: PayloadAction<Guitar>) => {
       delete state.goods[action.payload.id];
